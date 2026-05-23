@@ -31,3 +31,11 @@ test('app rendering does not assign model output as raw html', async () => {
   assert.doesNotMatch(source, /\.innerHTML\s*=/);
   assert.match(source, /textContent/);
 });
+
+test('homepage footer includes clinic, newsletter, and support links', async () => {
+  const html = await readFile('index.html', 'utf8');
+
+  assert.match(html, /https:\/\/www\.leepsyclinic\.com\//);
+  assert.match(html, /https:\/\/blog\.leepsyclinic\.com\//);
+  assert.match(html, /https:\/\/buymeacoffee\.com\/CYlee/);
+});
