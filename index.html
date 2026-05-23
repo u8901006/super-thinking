@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://open.bigmodel.cn; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
+    <title>思考框架建議器</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <header class="hero">
+      <p class="eyebrow">Thinking Framework Skill Router</p>
+      <h1>思考框架建議器</h1>
+      <p class="hero-text">輸入目前情境，先由 GLM-5-Turbo 推薦合適的思考框架，再用該框架產出具體建議。你也可以手動改選框架。</p>
+      <p class="security-note">API key 只保存在本頁記憶體中；重新整理後會消失。純 GitHub Pages 前端仍必須從你的瀏覽器送出 API key 到 Zhipu。</p>
+    </header>
+
+    <main class="layout">
+      <section class="panel input-panel" aria-labelledby="input-title">
+        <h2 id="input-title">輸入</h2>
+
+        <div class="field-group">
+          <label for="apiKeyInput">Zhipu API key</label>
+          <div class="key-row">
+            <input id="apiKeyInput" type="password" autocomplete="off" spellcheck="false" placeholder="貼上後按下使用，欄位會清空">
+            <button id="setKeyButton" type="button">使用 key</button>
+            <button id="clearKeyButton" type="button" class="secondary">清除</button>
+          </div>
+          <p id="keyStatus" class="status" aria-live="polite">尚未設定 API key。</p>
+        </div>
+
+        <div class="field-group">
+          <label for="situationInput">目前情境</label>
+          <textarea id="situationInput" rows="12" placeholder="請描述：背景、目標、限制、不確定性、決策期限、希望輸出形式。"></textarea>
+        </div>
+
+        <div class="button-row">
+          <button id="analyzeButton" type="button">第一階段：分析框架</button>
+          <button id="generateButton" type="button" class="accent">第二階段：產生建議</button>
+        </div>
+
+        <div class="field-group">
+          <h3>手動選擇框架</h3>
+          <div id="frameworkList" class="framework-list" role="list"></div>
+          <p id="selectedFrameworkStatus" class="status" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="panel output-panel" aria-labelledby="output-title">
+        <h2 id="output-title">結果</h2>
+
+        <div id="errorOutput" class="error" aria-live="assertive"></div>
+
+        <article class="result-card">
+          <h3>第一階段：框架分析</h3>
+          <div id="stageOneOutput" class="result-body muted">尚未分析。</div>
+        </article>
+
+        <article class="result-card">
+          <h3>第二階段：框架建議</h3>
+          <div id="adviceOutput" class="result-body muted">尚未產生建議。</div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

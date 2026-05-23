@@ -1,0 +1,25 @@
+node_modules/
+.superpowers/
+.env
+.env.*
+*.log
+
+# Local planning and source material, not part of the GitHub Pages app.
+docs/
+59個商業思考框架/
+終身受用的七張圖表思考法/
+造局者 _ 思考框架的威力/
+An Introduction to General Systems Thinking/
+Clear Thinking_ Turning Ordinary Moments into Extraordinary/
+Frameworks for Thinking_ A Handbook for Teaching/
+Making Better Decisions Using Systems Thinking/
+Mental Models _ 30 thinking tools that separate the average/
+Mental Models In A Nutshell/
+Rational Choice in an Uncertain World/
+Super Thinking/
+Systems Thinking Made Simple/
+The Great mental models/
+Thinking, fast and slow/
+Understanding and Using Mental Models_ Master Your/
+super-thinking/
+thinking-fast-and-slow/
