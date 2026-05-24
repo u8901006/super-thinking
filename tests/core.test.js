@@ -17,6 +17,47 @@ test('framework catalog includes the required initial skills', () => {
   assert.ok(ids.includes('thinking-fast-and-slow'));
 });
 
+test('framework catalog includes the requested thinking framework skills', () => {
+  const ids = FRAMEWORKS.map((framework) => framework.id);
+  const requestedIds = [
+    'circle-of-competence',
+    'falsifiability',
+    'first-principles-thinking',
+    'hanlons-razor',
+    'inversion',
+    'map-is-not-territory',
+    'necessity-and-sufficiency',
+    'occams-razor',
+    'probabilistic-thinking',
+    'second-order-thinking',
+    'thought-experiment',
+    'causation-vs-correlation',
+  ];
+
+  assert.equal(ids.includes('superpowers'), false);
+  for (const id of requestedIds) {
+    assert.ok(ids.includes(id), `${id} should be present`);
+  }
+});
+
+test('all framework catalog entries are usable by the prompt router', () => {
+  const ids = new Set();
+
+  for (const framework of FRAMEWORKS) {
+    assert.equal(typeof framework.id, 'string');
+    assert.equal(ids.has(framework.id), false, `${framework.id} should be unique`);
+    ids.add(framework.id);
+    assert.equal(typeof framework.name, 'string');
+    assert.equal(typeof framework.description, 'string');
+    assert.ok(Array.isArray(framework.bestFor), `${framework.id} should include bestFor`);
+    assert.ok(framework.bestFor.length >= 3, `${framework.id} should include at least 3 bestFor items`);
+    assert.ok(Array.isArray(framework.avoidWhen), `${framework.id} should include avoidWhen`);
+    assert.ok(Array.isArray(framework.coreQuestions), `${framework.id} should include coreQuestions`);
+    assert.ok(framework.coreQuestions.length >= 3, `${framework.id} should include at least 3 coreQuestions`);
+    assert.equal(typeof framework.promptGuide, 'string');
+  }
+});
+
 test('compact framework data keeps only fields needed for selection', () => {
   const compact = toCompactFramework(FRAMEWORKS[0]);
 
