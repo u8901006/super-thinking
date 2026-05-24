@@ -151,6 +151,40 @@ textarea {
   margin-bottom: 1.2rem;
 }
 
+.mode-group {
+  border: 0;
+  padding: 0;
+}
+
+.mode-group legend {
+  margin-bottom: 0.55rem;
+  font-weight: 700;
+}
+
+.mode-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.mode-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fffdf8;
+  padding: 0.65rem 0.9rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.mode-toggle label:has(input:checked) {
+  border-color: var(--accent);
+  background: #f4dfca;
+  color: var(--accent-strong);
+}
+
 .key-row,
 .button-row {
   display: flex;

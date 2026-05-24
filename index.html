@@ -35,6 +35,20 @@
           <textarea id="situationInput" rows="12" placeholder="請描述：背景、目標、限制、不確定性、決策期限、希望輸出形式。"></textarea>
         </div>
 
+        <fieldset class="field-group mode-group">
+          <legend>第一階段選擇方式</legend>
+          <div class="mode-toggle">
+            <label>
+              <input id="autoModeInput" type="radio" name="selectionMode" value="auto" checked>
+              <span>自動選擇框架</span>
+            </label>
+            <label>
+              <input id="manualModeInput" type="radio" name="selectionMode" value="manual">
+              <span>手動選擇框架</span>
+            </label>
+          </div>
+        </fieldset>
+
         <div class="button-row">
           <button id="analyzeButton" type="button">第一階段：分析框架</button>
           <button id="generateButton" type="button" class="accent">第二階段：產生建議</button>

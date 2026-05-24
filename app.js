@@ -7,6 +7,7 @@ const state = {
   recommendation: null,
   selectedFrameworkId: FRAMEWORKS[0]?.id || '',
   selectionSource: 'manual',
+  selectionMode: 'auto',
 };
 
 const elements = {
@@ -15,6 +16,8 @@ const elements = {
   clearKeyButton: document.getElementById('clearKeyButton'),
   keyStatus: document.getElementById('keyStatus'),
   situationInput: document.getElementById('situationInput'),
+  autoModeInput: document.getElementById('autoModeInput'),
+  manualModeInput: document.getElementById('manualModeInput'),
   analyzeButton: document.getElementById('analyzeButton'),
   generateButton: document.getElementById('generateButton'),
   frameworkList: document.getElementById('frameworkList'),
@@ -49,15 +52,24 @@ elements.clearKeyButton.addEventListener('click', () => {
 
 elements.analyzeButton.addEventListener('click', analyzeFramework);
 elements.generateButton.addEventListener('click', generateAdvice);
+elements.autoModeInput.addEventListener('change', updateSelectionMode);
+elements.manualModeInput.addEventListener('change', updateSelectionMode);
 
 async function analyzeFramework() {
   const situation = getSituation();
+
+  if (state.selectionMode === 'manual') {
+    clearError();
+    renderManualModeStageOne();
+    return;
+  }
+
   if (!validateReady({ situation })) {
     return;
   }
 
-  setBusy(elements.analyzeButton, true, '分析中...');
   clearError();
+  setBusy(elements.analyzeButton, true, '分析中...');
   setMutedText(elements.stageOneOutput, '正在分析適合的思考框架...');
 
   try {
@@ -87,6 +99,23 @@ async function analyzeFramework() {
   } finally {
     setBusy(elements.analyzeButton, false, '第一階段：分析框架');
   }
+}
+
+function updateSelectionMode() {
+  state.selectionMode = elements.manualModeInput.checked ? 'manual' : 'auto';
+}
+
+function renderManualModeStageOne() {
+  const selectedFramework = getSelectedFramework();
+  clearNode(elements.stageOneOutput);
+  elements.stageOneOutput.classList.remove('muted');
+
+  const list = document.createElement('ul');
+  list.className = 'result-list';
+  appendResultItem(list, '選擇方式', '手動選擇框架');
+  appendResultItem(list, '目前框架', selectedFramework ? selectedFramework.name : '尚未選擇框架');
+  appendResultItem(list, '下一步', '可直接按「第二階段：產生建議」，或先從下方清單改選框架。');
+  elements.stageOneOutput.append(list);
 }
 
 async function generateAdvice() {
